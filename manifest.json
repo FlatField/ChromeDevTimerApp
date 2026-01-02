@@ -5,7 +5,8 @@
   "description": "シンプルでエレガントなフローティングタイマー",
   "permissions": [
     "storage",
-    "notifications"
+    "notifications",
+    "alarms"
   ],
   "action": {
     "default_icon": {
