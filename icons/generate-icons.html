@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Icon Generator</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 40px; background: #f5f5f7; }
+    h1 { color: #1d1d1f; }
+    .icon-container { display: flex; gap: 30px; margin: 30px 0; align-items: flex-end; }
+    .icon-box { background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .icon-box p { margin: 10px 0 0; color: #86868b; font-size: 14px; }
+    canvas { border-radius: 8px; }
+    button { background: #0071e3; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; margin: 5px; }
+    button:hover { background: #0077ED; }
+    .instructions { background: white; padding: 20px; border-radius: 12px; margin-top: 20px; }
+    .instructions ol { color: #1d1d1f; line-height: 1.8; }
+  </style>
+</head>
+<body>
+  <h1>Timer Extension Icons</h1>
+  <p>このページでアイコンをダウンロードできます。</p>
+  
+  <div class="icon-container">
+    <div class="icon-box">
+      <canvas id="icon128" width="128" height="128"></canvas>
+      <p>128×128</p>
+      <button onclick="download(128)">Download</button>
+    </div>
+    <div class="icon-box">
+      <canvas id="icon48" width="48" height="48"></canvas>
+      <p>48×48</p>
+      <button onclick="download(48)">Download</button>
+    </div>
+    <div class="icon-box">
+      <canvas id="icon16" width="16" height="16"></canvas>
+      <p>16×16</p>
+      <button onclick="download(16)">Download</button>
+    </div>
+  </div>
+  
+  <button onclick="downloadAll()">すべてダウンロード</button>
+  
+  <div class="instructions">
+    <h3>手順：</h3>
+    <ol>
+      <li>このHTMLファイルをブラウザで開く</li>
+      <li>「すべてダウンロード」をクリック</li>
+      <li>ダウンロードされた3つのPNGファイルを icons フォルダに移動</li>
+    </ol>
+  </div>
+
+  <script>
+    const sizes = [16, 48, 128];
+    
+    function drawIcon(ctx, size) {
+      const scale = size / 128;
+      ctx.scale(scale, scale);
+      
+      // Background
+      ctx.beginPath();
+      ctx.arc(64, 68, 52, 0, Math.PI * 2);
+      ctx.fillStyle = '#1C1C1E';
+      ctx.fill();
+      
+      // Gradient background
+      const gradient = ctx.createLinearGradient(64, 18, 64, 118);
+      gradient.addColorStop(0, '#2C2C2E');
+      gradient.addColorStop(1, '#1C1C1E');
+      
+      ctx.beginPath();
+      ctx.arc(64, 68, 50, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      ctx.strokeStyle = '#3A3A3C';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      
+      // Top button
+      ctx.beginPath();
+      ctx.roundRect(56, 8, 16, 12, 4);
+      ctx.fillStyle = '#3A3A3C';
+      ctx.fill();
+      
+      // Timer ring background
+      ctx.beginPath();
+      ctx.arc(64, 68, 42, 0, Math.PI * 2);
+      ctx.strokeStyle = '#2C2C2E';
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      
+      // Timer ring progress
+      ctx.beginPath();
+      ctx.arc(64, 68, 42, -Math.PI / 2, Math.PI);
+      ctx.strokeStyle = '#0A84FF';
+      ctx.lineWidth = 6;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      
+      // Hour markers
+      ctx.fillStyle = '#8E8E93';
+      [[64, 32], [106, 68], [64, 104], [22, 68]].forEach(([x, y]) => {
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      
+      // Minute hand
+      ctx.beginPath();
+      ctx.moveTo(64, 68);
+      ctx.lineTo(64, 42);
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      
+      // Hour hand
+      ctx.beginPath();
+      ctx.moveTo(64, 68);
+      ctx.lineTo(82, 68);
+      ctx.strokeStyle = '#0A84FF';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      
+      // Center dot
+      ctx.beginPath();
+      ctx.arc(64, 68, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+    }
+    
+    sizes.forEach(size => {
+      const canvas = document.getElementById('icon' + size);
+      const ctx = canvas.getContext('2d');
+      drawIcon(ctx, size);
+    });
+    
+    function download(size) {
+      const canvas = document.getElementById('icon' + size);
+      const link = document.createElement('a');
+      link.download = 'icon' + size + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+    
+    function downloadAll() {
+      sizes.forEach(size => download(size));
+    }
+  </script>
+</body>
+</html>
+

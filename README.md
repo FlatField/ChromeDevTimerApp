@@ -67,8 +67,3 @@ TimerApp/
 - 滑らかなアニメーション
 
 ---
-
-Made with ❤️ for productivity
-
-# ChromeDevTimerApp
-# ChromeDevTimerApp

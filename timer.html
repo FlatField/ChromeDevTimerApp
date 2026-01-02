@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer</title>
+  <link rel="stylesheet" href="timer.css">
+</head>
+<body>
+  <div class="timer-container">
+    <div class="timer-header">
+      <span class="timer-title">Timer</span>
+    </div>
+    
+    <div class="timer-display">
+      <span id="time-display">00:00</span>
+    </div>
+    
+    <div class="timer-input-group">
+      <input type="number" id="minutes-input" min="0" max="999" value="0" placeholder="分">
+      <span class="input-label">m</span>
+      <input type="number" id="seconds-input" min="0" max="59" value="5" placeholder="秒">
+      <span class="input-label">s</span>
+    </div>
+    
+    <div class="timer-controls" id="normal-controls">
+      <button id="start-btn" class="btn btn-primary">Start</button>
+      <button id="stop-btn" class="btn btn-secondary" disabled>Stop</button>
+    </div>
+    
+    <div class="timer-controls alarm-controls" id="alarm-controls" style="display: none;">
+      <button id="dismiss-btn" class="btn btn-dismiss">アラームを止める</button>
+    </div>
+  </div>
+  
+  <script src="timer.js"></script>
+</body>
+</html>
+
